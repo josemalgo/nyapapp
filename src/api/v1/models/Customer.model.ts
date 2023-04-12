@@ -10,7 +10,7 @@ import {
 import Address from './Address.model'
 import Installation from './Installation.model'
 
-interface CustomerAttributes {
+export interface CustomerAttributes {
   id: string
   nif: string
   name: string
@@ -19,6 +19,7 @@ interface CustomerAttributes {
   email: string
   telephone: number
   mobilphone: number
+  idAdress: string
 }
 
 @Table({
