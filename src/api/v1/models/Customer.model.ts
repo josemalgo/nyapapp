@@ -19,7 +19,7 @@ export interface CustomerAttributes {
   email: string
   telephone: number
   mobilphone: number
-  idAdress: string
+  idAdress?: string
 }
 
 @Table({

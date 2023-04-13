@@ -23,8 +23,11 @@ class CustomerController {
     res.status(HttpStatusCodes.OK).json(customer)
   }
 
-  createCustomer (): void {
+  async createCustomer (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const newCustomer = req.body
 
+    const addedCustomer = await this.customerService.createCustomer(newCustomer)
+    res.status(HttpStatusCodes.CREATED).json(addedCustomer)
   }
 
   updateCustomer (): void {
