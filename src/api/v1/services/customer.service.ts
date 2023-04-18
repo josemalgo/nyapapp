@@ -1,6 +1,7 @@
 import { NewCustomer } from '../interfaces/types'
 import { Customer } from '../models'
 import { v4 as uuidv4 } from 'uuid'
+import { CustomerAttributes } from '../models/Customer.model'
 
 class CustomerService {
   async getCustomers (): Promise<Customer[]> {
@@ -25,6 +26,9 @@ class CustomerService {
 
     return customer
   }
-}
+
+  async updateCustomer(updateCustomer: CustomerAttributes): Promise<Customer> {
+    const updatedCustomer = await Customer.update
+  }
 
 export default CustomerService

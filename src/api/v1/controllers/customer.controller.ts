@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { HttpStatusCodes } from '../enums/enums'
-import { isValidId } from '../helpers'
+import { isValidId, validateRequest } from '../helpers'
 import CustomerService from '../services/customer.service'
 
 class CustomerController {
@@ -24,14 +24,16 @@ class CustomerController {
   }
 
   async createCustomer (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    validateRequest(req)
     const newCustomer = req.body
-
     const addedCustomer = await this.customerService.createCustomer(newCustomer)
     res.status(HttpStatusCodes.CREATED).json(addedCustomer)
   }
 
-  updateCustomer (): void {
-
+  async updateCustomer (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const { id } = req.params
+    isValidId(id)
+    validateRequest(req)
   }
 
   deleteCustomer (): void {
