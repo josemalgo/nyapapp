@@ -10,12 +10,8 @@ class CustomerService {
   }
 
   async getCustumer (id: string): Promise<Customer> {
-    const customer = await Customer.findByPk(id)
-    if (customer == null) {
-      // throw new Api404Error(`Player with id: ${id} not found.`)
-      throw new Error(`Player with id: ${id} not found.`)
-    }
-    return customer
+    const customer = this.findCustomerById(id)
+    return await customer
   }
 
   async createCustomer (newCustomer: NewCustomer): Promise<Customer> {
@@ -27,8 +23,20 @@ class CustomerService {
     return customer
   }
 
-  async updateCustomer(updateCustomer: CustomerAttributes): Promise<Customer> {
-    const updatedCustomer = await Customer.update
+  async updateCustomer (updateCustomer: CustomerAttributes): Promise<Customer> {
+    const customer = await this.findCustomerById(updateCustomer.id)
+    await customer.update(updateCustomer)
+    return customer
   }
+
+  private async findCustomerById (id: string): Promise<Customer> {
+    const customer = await Customer.findByPk(id)
+    if (customer == null) {
+      // throw new Api404Error(`Player with id: ${id} not found.`)
+      throw new Error(`Player with id: ${id} not found.`)
+    }
+    return customer
+  }
+}
 
 export default CustomerService

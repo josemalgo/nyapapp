@@ -34,6 +34,9 @@ class CustomerController {
     const { id } = req.params
     isValidId(id)
     validateRequest(req)
+    const customerToUpdate = req.body
+    const updatedCustomer = await this.customerService.updateCustomer(customerToUpdate)
+    res.status(HttpStatusCodes.OK).json(updatedCustomer)
   }
 
   deleteCustomer (): void {
