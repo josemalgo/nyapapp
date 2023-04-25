@@ -18,7 +18,7 @@ class CustomerRoutes {
 
   private initRoutes (): void {
     this.router.get(this.path, wrapAsync(this.controller.getAllCustomers))
-    this.router.get(`${this.path}/:id`, wrapAsync(this.controller.getCustomerById))
+    this.router.get(`${this.path}/:id`, validateId, wrapAsync(this.controller.getCustomerById))
     this.router.post(this.path, validateNewCustomer, wrapAsync(this.controller.createCustomer))
     this.router.put(`${this.path}/:id`, oneOf([validateId, validateNewCustomer]), wrapAsync(this.controller.updateCustomer))
     this.router.delete(`${this.path}/:id`, validateId, wrapAsync(this.controller.deleteCustomer))

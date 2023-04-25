@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript'
 import Product from './Product.model'
 
-interface SupplierAttributes {
+export interface SupplierAttributes {
   id: string
   name: string
 }

@@ -31,7 +31,7 @@ class CustomerService {
 
   private async findCustomerById (id: string): Promise<Customer> {
     const customer = await Customer.findByPk(id)
-    if (customer == null) {
+    if (customer === null) {
       // throw new Api404Error(`Player with id: ${id} not found.`)
       throw new Error(`Player with id: ${id} not found.`)
     }
