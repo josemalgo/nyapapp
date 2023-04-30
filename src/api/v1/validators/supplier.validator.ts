@@ -8,7 +8,7 @@ const customerExist: CustomValidator = async (value: string) => {
   }
 }
 
-export const validateNewSupplier = [
+export const validateSupplier = [
   check('name')
     .trim()
     .escape()

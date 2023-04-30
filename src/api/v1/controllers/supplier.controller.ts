@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { HttpStatusCodes } from '../enums/enums'
-import { isValidId, validateRequest } from '../helpers'
+import { validateRequest } from '../helpers'
 import SupplierService from '../services/supplierService'
 
 class SupplierController {
@@ -30,12 +30,18 @@ class SupplierController {
     res.status(HttpStatusCodes.CREATED).json(addedSupplier)
   }
 
-  updateSupplier (): void {
-
+  async updateSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    validateRequest(req)
+    const supplier = req.body
+    const updatedSupplier = await this.supplierService.updateSupplier(supplier)
+    res.status(HttpStatusCodes.OK).json(updatedSupplier)
   }
 
-  deleteSupplier (): void {
-
+  async deleteSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    validateRequest(req)
+    const { id } = req.params
+    await this.supplierService.deleteSupplier(id)
+    res.status(HttpStatusCodes.OK)
   }
 }
 

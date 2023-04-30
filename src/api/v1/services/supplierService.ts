@@ -28,6 +28,10 @@ class SupplierService {
     return supplier
   }
 
+  async deleteSupplier (id: string): Promise<void> {
+    await Supplier.destroy({ where: { id } })
+  }
+
   private async findSupplierById (id: string): Promise<Supplier> {
     const supplier = await Supplier.findByPk(id)
     if (supplier === null) {

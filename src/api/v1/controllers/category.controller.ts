@@ -1,23 +1,45 @@
 class CategoryController {
-  getCategories (): void {
+  public supplierService: SupplierService
 
+  constructor () {
+    this.supplierService = new SupplierService()
   }
 
-  getCategoryById (): void {
-
+  async getSuppliers (_req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const allSuppliers = await this.supplierService.getAllSuppliers()
+    res.status(HttpStatusCodes.OK).json(allSuppliers)
   }
 
-  createCategory (): void {
+  async getSupplierById (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    const { id } = req.params
+    validateRequest(req)
 
+    const supplier = await this.supplierService.getSupplier(id)
+    res.status(HttpStatusCodes.OK).json(supplier)
   }
 
-  updateCategory (): void {
-
+  async createSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    validateRequest(req)
+    const newSupplier = req.body
+    const addedSupplier = await this.supplierService.createSupplier(newSupplier)
+    res.status(HttpStatusCodes.CREATED).json(addedSupplier)
   }
 
-  deleteCategory (): void {
-
+  async updateSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    validateRequest(req)
+    const supplier = req.body
+    const updatedSupplier = await this.supplierService.updateSupplier(supplier)
+    res.status(HttpStatusCodes.OK).json(updatedSupplier)
   }
+
+  async deleteSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
+    validateRequest(req)
+    const { id } = req.params
+    await this.supplierService.deleteSupplier(id)
+    res.status(HttpStatusCodes.OK)
+  }
+}
+
 }
 
 export default CategoryController

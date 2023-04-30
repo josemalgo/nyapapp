@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript'
 import Product from './Product.model'
 
-interface CategoryAttributes {
+export interface CategoryAttributes {
   id: string
   name: string
 }

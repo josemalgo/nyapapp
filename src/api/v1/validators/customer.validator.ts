@@ -15,7 +15,7 @@ const customerExist: CustomValidator = async (value: string) => {
   }
 }
 
-export const validateNewCustomer = [
+export const validateCustomer = [
   check('nif')
     .trim()
     .escape()
