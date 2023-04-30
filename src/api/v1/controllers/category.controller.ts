@@ -1,45 +1,48 @@
+import { NextFunction, Request, Response } from 'express'
+import { HttpStatusCodes } from '../enums/enums'
+import { validateRequest } from '../helpers'
+import CategoryService from '../services/category.service'
+
 class CategoryController {
-  public supplierService: SupplierService
+  public categoryService: CategoryService
 
   constructor () {
-    this.supplierService = new SupplierService()
+    this.categoryService = new CategoryService()
   }
 
   async getSuppliers (_req: Request, res: Response, _next: NextFunction): Promise<void> {
-    const allSuppliers = await this.supplierService.getAllSuppliers()
-    res.status(HttpStatusCodes.OK).json(allSuppliers)
+    const allCategory = await this.categoryService.getAllCategory()
+    res.status(HttpStatusCodes.OK).json(allCategory)
   }
 
   async getSupplierById (req: Request, res: Response, _next: NextFunction): Promise<void> {
     const { id } = req.params
     validateRequest(req)
 
-    const supplier = await this.supplierService.getSupplier(id)
-    res.status(HttpStatusCodes.OK).json(supplier)
+    const category = await this.categoryService.getCategory(id)
+    res.status(HttpStatusCodes.OK).json(category)
   }
 
   async createSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
     validateRequest(req)
-    const newSupplier = req.body
-    const addedSupplier = await this.supplierService.createSupplier(newSupplier)
-    res.status(HttpStatusCodes.CREATED).json(addedSupplier)
+    const newCategory = req.body
+    const addedCategory = await this.categoryService.createCategory(newCategory)
+    res.status(HttpStatusCodes.CREATED).json(addedCategory)
   }
 
   async updateSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
     validateRequest(req)
-    const supplier = req.body
-    const updatedSupplier = await this.supplierService.updateSupplier(supplier)
-    res.status(HttpStatusCodes.OK).json(updatedSupplier)
+    const category = req.body
+    const updatedCategory = await this.categoryService.updateCategory(category)
+    res.status(HttpStatusCodes.OK).json(updatedCategory)
   }
 
   async deleteSupplier (req: Request, res: Response, _next: NextFunction): Promise<void> {
     validateRequest(req)
     const { id } = req.params
-    await this.supplierService.deleteSupplier(id)
+    await this.categoryService.deleteCategory(id)
     res.status(HttpStatusCodes.OK)
   }
-}
-
 }
 
 export default CategoryController
